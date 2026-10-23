@@ -20,7 +20,9 @@
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: linear-gradient(rgba(11, 12, 16, 0.85), rgba(11, 12, 16, 0.95)), 
+            /* Thêm dải màu gradient nền đa tầng kết hợp ánh sáng vàng nhẹ và tối sâu thẳm */
+            background: radial-gradient(circle at 50% 30%, rgba(40, 35, 20, 0.4) 0%, rgba(11, 12, 16, 0.95) 70%),
+                        linear-gradient(rgba(11, 12, 16, 0.85), rgba(11, 12, 16, 0.98)), 
                         url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
             background-size: cover;
             color: #ffffff;
@@ -33,18 +35,19 @@
             overflow-x: hidden;
         }
 
-        /* Khung chính phong cách kính mờ Glassmorphism */
+        /* Khung chính phong cách kính mờ Glassmorphism tích hợp viền gradient ánh sáng */
         .card-container {
-            background-color: rgba(23, 24, 33, 0.9);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: linear-gradient(135deg, rgba(28, 30, 42, 0.85) 0%, rgba(17, 18, 24, 0.95) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-radius: 24px;
             padding: 50px 40px;
             width: 100%;
             max-width: 520px;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(249, 197, 83, 0.2); /* Viền ánh vàng nhẹ nhàng cao cấp */
             position: relative;
             z-index: 2;
         }
@@ -60,6 +63,7 @@
         .brand-logo i {
             font-size: 34px;
             color: #f7d070;
+            filter: drop-shadow(0 0 10px rgba(247, 208, 112, 0.4));
         }
 
         .brand-title {
@@ -67,15 +71,18 @@
             font-weight: 800;
             color: #ffffff;
             letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #ffffff 0%, #f9c553 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         /* Định dạng Slogan */
         .slogan-text {
             font-size: 14px;
             font-weight: 600;
-            color: #a0a6b8;
+            color: #b0b6c8;
             margin-bottom: 35px;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
         }
 
@@ -96,16 +103,17 @@
             text-align: center;
             letter-spacing: 2px;
             border-radius: 50px;
-            border: 2px solid rgba(255, 255, 255, 0.15);
-            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            background: rgba(0, 0, 0, 0.5);
             color: #ffffff;
             outline: none;
-            transition: all 0.25s ease;
+            transition: all 0.3s ease;
         }
 
         .pin-input:focus {
             border-color: #f9c553;
-            box-shadow: 0 0 15px rgba(249, 197, 83, 0.3);
+            box-shadow: 0 0 20px rgba(249, 197, 83, 0.35), 
+                        inset 0 0 10px rgba(249, 197, 83, 0.1);
         }
 
         .btn-action {
@@ -113,7 +121,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            background: linear-gradient(180deg, #ffe17d 0%, #f9c553 100%);
+            background: linear-gradient(135deg, #ffe17d 0%, #f9c553 50%, #e0a832 100%);
             color: #111111;
             font-weight: 700;
             font-size: 16px;
@@ -121,15 +129,16 @@
             border-radius: 50px;
             border: none;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(249, 197, 83, 0.3);
-            transition: all 0.25s ease;
+            box-shadow: 0 8px 25px rgba(249, 197, 83, 0.35);
+            transition: all 0.3s ease;
             width: 100%;
             max-width: 320px;
         }
 
         .btn-action:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(249, 197, 83, 0.45);
+            box-shadow: 0 12px 30px rgba(249, 197, 83, 0.5);
+            background: linear-gradient(135deg, #ffea9f 0%, #fbd069 50%, #f1b63e 100%);
         }
 
         .error-msg {
@@ -142,7 +151,7 @@
 
         /* Banner Chân Trang (Hiển thị ảnh Logo riêng) */
         .footer-logo-container {
-            margin-top: 35px;
+            margin-top: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -156,7 +165,12 @@
             height: auto;
             width: auto;
             object-fit: contain;
-            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 6px 15px rgba(0, 0, 0, 0.6));
+            transition: transform 0.3s ease;
+        }
+
+        .footer-logo-img:hover {
+            transform: scale(1.02);
         }
 
         .shake {
@@ -171,7 +185,7 @@
 
         @media (max-width: 480px) {
             .card-container { padding: 40px 20px; }
-            .footer-logo-img { max-height: 38px; }
+            .footer-logo-img { max-height: 100px; }
         }
     </style>
 </head>
@@ -198,7 +212,7 @@
 
     <!-- Banner Chân Trang Sử Dụng File Ảnh DỰ ÁN SÂN CHƠI ADM1.png -->
     <div class="footer-logo-container">
-        <img src="DỰ ÁN SÂN CHƠI ADM1.png" alt="Dự Án Sân Chơi ADM" class="footer-logo-img">
+        <img src="D%C6%AF%CC%A3%20A%CC%81N%20S%C3%82N%20CH%C6%A1I%20ADM1.png" alt="Dự Án Sân Chơi ADM" class="footer-logo-img">
     </div>
 
     <script>
