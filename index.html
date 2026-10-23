@@ -73,4 +73,170 @@
         .slogan-text {
             font-size: 14px;
             font-weight: 600;
-            color: #a0a6
+            color: #a0a6b8;
+            margin-bottom: 35px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Form nhập mật khẩu */
+        .pin-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .pin-input {
+            width: 100%;
+            max-width: 320px;
+            padding: 16px 20px;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 2px;
+            border-radius: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            background: rgba(0, 0, 0, 0.4);
+            color: #ffffff;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .pin-input:focus {
+            border-color: #f9c553;
+            box-shadow: 0 0 15px rgba(249, 197, 83, 0.3);
+        }
+
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(180deg, #ffe17d 0%, #f9c553 100%);
+            color: #111111;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 15px 42px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(249, 197, 83, 0.3);
+            transition: all 0.25s ease;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(249, 197, 83, 0.45);
+        }
+
+        .error-msg {
+            color: #ff5252;
+            font-size: 14px;
+            font-weight: 600;
+            display: none;
+            margin-top: 5px;
+        }
+
+        /* Banner Chân Trang (Hiển thị ảnh Logo riêng) */
+        .footer-logo-container {
+            margin-top: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            user-select: none;
+        }
+
+        .footer-logo-img {
+            max-height: 48px;
+            max-width: 90vw;
+            height: auto;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+        }
+
+        .shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+
+        @media (max-width: 480px) {
+            .card-container { padding: 40px 20px; }
+            .footer-logo-img { max-height: 38px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-container" id="cardContainer">
+        <div class="brand-logo">
+            <i class="fa-solid fa-gamepad"></i>
+            <span class="brand-title">Golden Games Store</span>
+        </div>
+
+        <!-- Slogan mới -->
+        <p class="slogan-text">Tự chủ không khoan nhượng.</p>
+
+        <form class="pin-box" onsubmit="verifyPin(event)">
+            <input type="password" id="pinInput" class="pin-input" placeholder="NHẬP MẬT KHẨU" autocomplete="off" required>
+            <div id="errorMsg" class="error-msg">Mật khẩu không đúng. Vui lòng thử lại!</div>
+            <button type="submit" class="btn-action">
+                <span>Xác Nhận</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </form>
+    </div>
+
+    <!-- Banner Chân Trang Sử Dụng File Ảnh DỰ ÁN SÂN CHƠI ADM1.png -->
+    <div class="footer-logo-container">
+        <img src="DỰ ÁN SÂN CHƠI ADM1.png" alt="Dự Án Sân Chơi ADM" class="footer-logo-img">
+    </div>
+
+    <script>
+        // Link Notion đã mã hóa Base64
+        const _encUrl = "aHR0cHM6Ly9raGFuZ2dvbGRlbi5ub3Rpb24uc2l0ZS9Hb2xkZW4tR2FtZXMtU3RvcmUtMWMyODJmMzkzNDgxODBiMGJkMTNkNmQ3YzcxOWI4M2Y=";
+        const _correctPin = "2424";
+
+        // Kiểm tra Session khi vừa tải trang
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.location.search) {
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+
+        function verifyPin(e) {
+            e.preventDefault();
+            const inputVal = document.getElementById('pinInput').value.trim();
+            const errorElement = document.getElementById('errorMsg');
+            const card = document.getElementById('cardContainer');
+
+            if (inputVal === _correctPin) {
+                errorElement.style.display = 'none';
+
+                // Lưu khóa xác thực vào SessionStorage (tự hủy khi tắt tab/trình duyệt)
+                const sessionKey = 'sess_' + Math.random().toString(36).substring(2, 9);
+                sessionStorage.setItem('_ggs_auth', sessionKey);
+
+                // Chuyển hướng sang trang đích Notion
+                window.location.href = atob(_encUrl);
+            } else {
+                errorElement.style.display = 'block';
+                card.classList.remove('shake');
+                void card.offsetWidth; // Trigger reflow
+                card.classList.add('shake');
+                document.getElementById('pinInput').value = '';
+                document.getElementById('pinInput').focus();
+            }
+        }
+    </script>
+</body>
+</html>
