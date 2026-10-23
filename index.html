@@ -54,7 +54,13 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            margin-bottom: 30px;
+            margin-bottom: 12px;
+        }
+
+        /* Tùy chỉnh kích thước ảnh Logo nếu anh dùng file ảnh */
+        .brand-logo img {
+            height: 40px;
+            object-fit: contain;
         }
 
         .brand-logo i {
@@ -67,6 +73,16 @@
             font-weight: 800;
             color: #ffffff;
             letter-spacing: -0.5px;
+        }
+
+        /* Định dạng Slogan */
+        .slogan-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #a0a6b8;
+            margin-bottom: 35px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         /* Form nhập mật khẩu */
@@ -221,9 +237,15 @@
 
     <div class="card-container" id="cardContainer">
         <div class="brand-logo">
+            <!-- NẾU DÙNG FILE ẢNH LOGO RIÊNG, ANH BỎ DẤU CHÚ THÍCH DƯỚI ĐÂY VÀ ĐỔI TÊN FILE -->
+            <!-- <img src="tên-logo-cua-anh.png" alt="Logo"> -->
+            
             <i class="fa-solid fa-gamepad"></i>
             <span class="brand-title">Golden Games Store</span>
         </div>
+
+        <!-- Slogan mới cực chất -->
+        <p class="slogan-text">Tự chủ không khoan nhượng.</p>
 
         <form class="pin-box" onsubmit="verifyPin(event)">
             <input type="password" id="pinInput" class="pin-input" placeholder="NHẬP MẬT KHẨU" autocomplete="off" required>
